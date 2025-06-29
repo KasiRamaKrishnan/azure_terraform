@@ -129,9 +129,15 @@ resource "azurerm_linux_virtual_machine" "vm" {
     version   = "latest"
   }
 
+   custom_data = base64encode(<<EOF
+    #!/bin/bash
+    sudo apt-get update
+    sudo apt-get install -y ansible
+    EOF
+      )
   admin_ssh_key {
     username   = "azureuser"
-    public_key = file("/mnt/c/Users/kumar/Desktop/PWC/monitoring_agent/azure-vm-terraform/id_rsa.pub")
+    public_key = file("~/.ssh/id_rsa.pub")
   }
 
   disable_password_authentication = true
