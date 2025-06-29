@@ -129,12 +129,13 @@ resource "azurerm_linux_virtual_machine" "vm" {
     version   = "latest"
   }
 
-   custom_data = base64encode(<<EOF
-    #!/bin/bash
-    sudo apt-get update
-    sudo apt-get install -y ansible
-    EOF
-      )
+  custom_data = base64encode(<<EOF
+  #!/bin/bash
+  apt-get update
+  apt-get install -y ansible
+  EOF
+  )
+
   admin_ssh_key {
     username   = "azureuser"
     public_key = file("~/.ssh/id_rsa.pub")
